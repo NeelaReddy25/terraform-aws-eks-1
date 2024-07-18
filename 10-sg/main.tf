@@ -79,82 +79,82 @@ resource "aws_security_group_rule" "cluster_bastion" {
     security_group_id = module.cluster.sg_id 
 }
 
-# # EKS control plane accepting all traffic from nodes
-# resource "aws_security_group_rule" "cluster_node" {
-#     type = "ingress"
-#     from_port = 0
-#     to_port = 65535
-#     protocol = "-1" # All traffic
-#     source_security_group_id = module.node.sg_id 
-#     security_group_id = module.cluster.sg_id 
-# }
+# EKS control plane accepting all traffic from nodes
+resource "aws_security_group_rule" "cluster_node" {
+    type = "ingress"
+    from_port = 0
+    to_port = 65535
+    protocol = "-1" # All traffic
+    source_security_group_id = module.node.sg_id 
+    security_group_id = module.cluster.sg_id 
+}
 
-# # EKS node accepting all traffic from cluster
-# resource "aws_security_group_rule" "node_cluster" {
-#     type = "ingress"
-#     from_port = 0
-#     to_port = 65535
-#     protocol = "-1" # All traffic
-#     source_security_group_id = module.cluster.sg_id 
-#     security_group_id = module.node.sg_id 
-# }
+# EKS node accepting all traffic from cluster
+resource "aws_security_group_rule" "node_cluster" {
+    type = "ingress"
+    from_port = 0
+    to_port = 65535
+    protocol = "-1" # All traffic
+    source_security_group_id = module.cluster.sg_id 
+    security_group_id = module.node.sg_id 
+}
 
-# # EKS nodes should accept all traffic from nodes with in VPC CIDR range
-# resource "aws_security_group_rule" "node_vpc" {
-#     type = "ingress"
-#     from_port = 0
-#     to_port = 65535
-#     protocol = "-1" # All traffic
-#     cidr_blocks =  [ "10.0.0.0/16" ]
-#     security_group_id = module.node.sg_id 
-# }
+# EKS nodes should accept all traffic from nodes with in VPC CIDR range
+resource "aws_security_group_rule" "node_vpc" {
+    type = "ingress"
+    from_port = 0
+    to_port = 65535
+    protocol = "-1" # All traffic
+    cidr_blocks =  [ "10.0.0.0/16" ]
+    security_group_id = module.node.sg_id 
+}
 
-# # RDS accepting connections from bastion
-# resource "aws_security_group_rule" "db_bastion" {
-#     type = "ingress"
-#     from_port = 3306
-#     to_port = 3306
-#     protocol = "tcp" # All traffic
-#     source_security_group_id = module.bastion.sg_id 
-#     security_group_id = module.db.sg_id 
-# }
+# RDS accepting connections from bastion
+resource "aws_security_group_rule" "db_bastion" {
+    type = "ingress"
+    from_port = 3306
+    to_port = 3306
+    protocol = "tcp" # All traffic
+    source_security_group_id = module.bastion.sg_id 
+    security_group_id = module.db.sg_id 
+}
 
-# # DB should accept connections from EKS node
-# resource "aws_security_group_rule" "db_node" {
-#     type = "ingress"
-#     from_port = 3306
-#     to_port = 3306
-#     protocol = "tcp" # All traffic
-#     source_security_group_id = module.node.sg_id 
-#     security_group_id = module.db.sg_id 
-# }
+# DB should accept connections from EKS node
+resource "aws_security_group_rule" "db_node" {
+    type = "ingress"
+    from_port = 3306
+    to_port = 3306
+    protocol = "tcp" # All traffic
+    source_security_group_id = module.node.sg_id 
+    security_group_id = module.db.sg_id 
+}
 
-# # Ingress ALB accepting traffic on 443
-# resource "aws_security_group_rule" "ingress_public_https" {
-#     type = "ingress"
-#     from_port = 443
-#     to_port = 443
-#     protocol = "tcp" # All traffic
-#     cidr_blocks = ["0.0.0.0/0"]
-#     security_group_id = module.ingress.sg_id 
-# }
+# Ingress ALB accepting traffic on 443
+resource "aws_security_group_rule" "ingress_public_https" {
+    type = "ingress"
+    from_port = 443
+    to_port = 443
+    protocol = "tcp" # All traffic
+    cidr_blocks = ["0.0.0.0/0"]
+    security_group_id = module.ingress.sg_id 
+}
 
-# # Ingress ALB accepting traffic on 80
-# resource "aws_security_group_rule" "ingress_public_http" {
-#     type = "ingress"
-#     from_port = 80
-#     to_port = 80
-#     protocol = "tcp" # All traffic
-#     cidr_blocks = ["0.0.0.0/0"]
-#     security_group_id = module.ingress.sg_id 
-# }
+# Ingress ALB accepting traffic on 80
+resource "aws_security_group_rule" "ingress_public_http" {
+    type = "ingress"
+    from_port = 80
+    to_port = 80
+    protocol = "tcp" # All traffic
+    cidr_blocks = ["0.0.0.0/0"]
+    security_group_id = module.ingress.sg_id 
+}
 
-# # node is accepting the connections from ingress
-# resource "aws_security_group_rule" "node_ingress" {
-#     type = "ingress"
-#     from_port = 30000
-#     to_port = 32768
-#     protocol = "tcp" # All traffic
-#     source_security_group_id = module.ingress.sg_id 
-#     security_group_id = module.node.sg_id 
-# }
+# node is accepting the connections from ingress
+resource "aws_security_group_rule" "node_ingress" {
+    type = "ingress"
+    from_port = 30000
+    to_port = 32768
+    protocol = "tcp" # All traffic
+    source_security_group_id = module.ingress.sg_id 
+    security_group_id = module.node.sg_id 
+}
