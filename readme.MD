@@ -68,7 +68,7 @@ eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster <your-clus
 ```
 * Download an IAM policy for the LBC using one of the following commands:
 ```
-curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs aws-load-balancer-controller/v2.8.1/docs/install/iam_policy.json
+curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.8.1/docs/install/iam_policy.json
 ```
 
 * Create an IAM policy named AWSLoadBalancerControllerIAMPolicy. If you downloaded a different policy, replace iam-policy with the name of the policy that you downloaded.

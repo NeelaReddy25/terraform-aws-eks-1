@@ -13,7 +13,7 @@ module "eks" {
   cluster_name    = "${var.project_name}-${var.environment}"
   cluster_version = "1.30"
 
-  cluster_endpoint_public_access  = false
+  cluster_endpoint_public_access  = true
 
   cluster_addons = {
     coredns                = {}

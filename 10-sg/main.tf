@@ -74,7 +74,7 @@ resource "aws_security_group_rule" "cluster_bastion" {
     type = "ingress"
     from_port = 443
     to_port = 443
-    protocol = "tcp"
+    protocol = "TCP"
     source_security_group_id = module.bastion.sg_id 
     security_group_id = module.cluster.sg_id 
 }
@@ -114,7 +114,7 @@ resource "aws_security_group_rule" "db_bastion" {
     type = "ingress"
     from_port = 3306
     to_port = 3306
-    protocol = "tcp" # All traffic
+    protocol = "TCP" # All traffic
     source_security_group_id = module.bastion.sg_id 
     security_group_id = module.db.sg_id 
 }
@@ -124,7 +124,7 @@ resource "aws_security_group_rule" "db_node" {
     type = "ingress"
     from_port = 3306
     to_port = 3306
-    protocol = "tcp" # All traffic
+    protocol = "TCP" # All traffic
     source_security_group_id = module.node.sg_id 
     security_group_id = module.db.sg_id 
 }
@@ -134,7 +134,7 @@ resource "aws_security_group_rule" "ingress_public_https" {
     type = "ingress"
     from_port = 443
     to_port = 443
-    protocol = "tcp" # All traffic
+    protocol = "TCP" # All traffic
     cidr_blocks = ["0.0.0.0/0"]
     security_group_id = module.ingress.sg_id 
 }
@@ -144,7 +144,7 @@ resource "aws_security_group_rule" "ingress_public_http" {
     type = "ingress"
     from_port = 80
     to_port = 80
-    protocol = "tcp" # All traffic
+    protocol = "TCP" # All traffic
     cidr_blocks = ["0.0.0.0/0"]
     security_group_id = module.ingress.sg_id 
 }
@@ -154,7 +154,7 @@ resource "aws_security_group_rule" "node_ingress" {
     type = "ingress"
     from_port = 30000
     to_port = 32768
-    protocol = "tcp" # All traffic
+    protocol = "TCP" # All traffic
     source_security_group_id = module.ingress.sg_id 
     security_group_id = module.node.sg_id 
 }
